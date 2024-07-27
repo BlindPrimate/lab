@@ -7,12 +7,20 @@ import (
 )
 
 func main() {
-	src1 := []byte("1c0111001f010100061a024b53535009181c")
-	src2 := []byte("686974207468652062756c6c277320657965")
-	xorResult, err := xor.XorBytes(src1, src2)
+	src := []byte("1b37373331363f78151b7f2b783431333d78397828372d363c78373e783a393b3736")
+	bits, err := hex_to_b64.DecodeHex(src)
 	if err != nil {
 		fmt.Println(err)
 	}
+	mostCommon := xor.FindXorChar(src)
+	fmt.Println(mostCommon)
 
-	fmt.Println(string(hex_to_b64.EncodeHex(xorResult)))
+	for i := range 256 {
+		trans := xor.SingleByteXorOfBytes(bits, byte(i))
+		fmt.Println(string(trans))
+		fmt.Println(i)
+	}
+
+	// fmt.Println(string(trans))
+
 }
